@@ -28,7 +28,7 @@ jobs:
           python -m compileall .
       - name: Run crypto fetch (creates timestamped JSON in crypto_data/)
         run: |
-          python crypto_fetch.py
+          python app.py
           echo "Files created:"
           ls -lah crypto_data || true
 
@@ -40,4 +40,5 @@ jobs:
             crypto_data/*.json
           if-no-files-found: error
           retention-days: 7
+
 
