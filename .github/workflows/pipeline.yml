@@ -26,3 +26,18 @@ jobs:
       - name: Build the project (compile Python files)
         run: |
           python -m compileall .
+      - name: Run crypto fetch (creates timestamped JSON in crypto_data/)
+        run: |
+          python crypto_fetch.py
+          echo "Files created:"
+          ls -lah crypto_data || true
+
+      - name: Upload artifact (crypto_data)
+        uses: actions/upload-artifact@v4
+        with:
+          name: crypto-data-${{ github.run_id }}
+          path: |
+            crypto_data/*.json
+          if-no-files-found: error
+          retention-days: 7
+
